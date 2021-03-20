@@ -1,0 +1,21 @@
+@value colors: '../../styles/variables/colors.css';
+@value bgColor from colors;
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+.title {
+  margin-right: 20px;
+  font-weight: 800;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.addBtn {
+  width: 40px;
+  height: 40px;
+}

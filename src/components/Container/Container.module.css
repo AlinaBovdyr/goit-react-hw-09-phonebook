@@ -1,0 +1,55 @@
+@value colors: '../../styles/variables/colors.css';
+@value mainColor from colors;
+
+.mainContainer {
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px 15px;
+}
+
+.section {
+  min-height: 100vh;
+  background-image: linear-gradient(
+      rgba(15, 29, 45, 0.4),
+      rgba(15, 29, 45, 0.4)
+    ),
+    url(../../img/bg.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+}
+
+.container {
+  position: relative;
+  max-width: 800px;
+  margin: 30px auto;
+}
+
+.titleWrapper {
+  text-align: center;
+  color: #fefff7;
+  background-color: mainColor;
+}
+
+.mainTitle {
+  letter-spacing: 0.2em;
+  line-height: 2;
+}
+
+.childContainer {
+  padding: 20px;
+  height: fit-content;
+}
+
+.appear {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.appearActive {
+  opacity: 1;
+  transform: scale(1);
+  transition: all 500ms linear;
+}

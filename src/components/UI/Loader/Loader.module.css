@@ -1,0 +1,39 @@
+.loader {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.preloader {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  overflow: hidden;
+  background-color: rgb(33, 212, 253, 0.3);
+  background-image: linear-gradient(
+    19deg,
+    rgba(130, 139, 141, 0.5) 0%,
+    rgba(183, 33, 255, 0.5) 100%
+  );
+  z-index: 1001;
+  color: #eee;
+}
+
+.preloader__image {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  margin-top: -35px;
+  margin-left: -35px;
+  text-align: center;
+  animation: preloader-rotate 2s infinite linear;
+}
+
+@keyframes preloader-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}

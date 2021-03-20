@@ -1,0 +1,8 @@
+@value colors: '../../../styles/variables/colors.css';
+@value secondaryColor from colors;
+
+.error {
+  margin-top: 40px;
+  text-align: center;
+  color: secondaryColor;
+}
