@@ -11,7 +11,7 @@ import 'modern-normalize/modern-normalize.css';
 import './styles/index.css';
 
 ReactDOM.render(
-  // <React.StrictMode>
+  <React.StrictMode>
     <Provider store={store.store}>
       <PersistGate
         loading={null}
@@ -22,6 +22,6 @@ ReactDOM.render(
         </BrowserRouter>
       </PersistGate>
     </Provider>,
-  // </React.StrictMode>,
+  </React.StrictMode>,
   document.getElementById('root'),
 );

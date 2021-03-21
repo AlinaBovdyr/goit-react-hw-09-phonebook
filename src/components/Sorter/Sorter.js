@@ -1,14 +1,21 @@
-import s from './Sorter.module.css';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import { useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeSorting, getSorter } from '../../redux/contacts';
+import s from './Sorter.module.css';
 
 const Sort = {
   ABC: 'abc',
   DATE: 'date',
 };
 
-function Sorter({ value, onRadioChange }) {
+export default function Sorter() {
+  const dispatch = useDispatch();
+  const value = useSelector(getSorter);
+
+  const onRadioChange = useCallback(e => {
+    dispatch(changeSorting(e.target.value))
+  }, [dispatch]);
+
   return (
     <div className={s.container}>
       <p className={s.subtitle}>Sort by:</p>
@@ -39,18 +46,3 @@ function Sorter({ value, onRadioChange }) {
     </div>
   );
 };
-
-Sorter.propTypes = {
-  value: PropTypes.string,
-  onRadioChange: PropTypes.func,
-};
-
-const mapStateToProps = (state) => ({
-  value: getSorter(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  onRadioChange: e => dispatch(changeSorting(e.target.value))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Sorter);

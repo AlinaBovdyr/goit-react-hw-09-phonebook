@@ -23,24 +23,29 @@ const Router = () => {
   return (
     <Suspense fallback={<Preloader />}>
         <Switch>
-            <PublicRoute path={routes.home} exact component={HomeView} />
+            <PublicRoute path={routes.home} exact>
+              <HomeView/>
+            </PublicRoute>
             <PublicRoute 
               path={routes.register}
               restricted
               redirectTo={routes.contacts} 
-              component={RegisterView} 
-            />
+            >
+              <RegisterView/>
+            </PublicRoute>
             <PublicRoute
               path={routes.login} 
               restricted 
               redirectTo={routes.contacts} 
-              component={LoginView} 
-            />
+            >
+              <LoginView/>
+            </PublicRoute>
             <PrivateRoute 
-              path={routes.contacts} 
-              component={ContactsView} 
+              path={routes.contacts}
               redirectTo={routes.login} 
-            />
+            >
+              <ContactsView/>
+            </PrivateRoute>
       </Switch>
     </Suspense>
   );

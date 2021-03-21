@@ -1,32 +1,26 @@
-import { Component } from 'react';
-import { connect } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
- import 'react-toastify/dist/ReactToastify.css';
 import { authOperations } from './redux/auth';
 import AppBar from './components/AppBar/AppBar';
 import Router from './Router/Router';
 import Container from './components/Container/Container';
+import 'react-toastify/dist/ReactToastify.css';
 
-class App extends Component {
-  componentDidMount() {
-    this.props.onRefresh();
-  }
+export default function App() {
+  const dispatch = useDispatch();
 
-  render() {
-    return (
-      <>
-        <AppBar />
-        <Container>
-          <Router />
-          <ToastContainer autoClose={3000}/>
-        </Container>
-      </>
-    );
-  }
+  useEffect(() => {
+    dispatch(authOperations.getCurrentUser());
+  }, [dispatch])
+
+  return (
+    <>
+      <AppBar />
+      <Container>
+        <Router />
+        <ToastContainer autoClose={3000}/>
+      </Container>
+    </>
+  );
 };
-
-const mapDispatchToProps = {
-  onRefresh: authOperations.getCurrentUser,
-};
-
-export default connect(null, mapDispatchToProps)(App);

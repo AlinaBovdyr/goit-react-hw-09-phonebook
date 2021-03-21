@@ -7,7 +7,7 @@ const LoaderView = () => {
     return (
         <Loader
             className={s.loader}
-            type="Grid"
+            type="ThreeDots"
             color="#181838"
             height={200}
             width={200}

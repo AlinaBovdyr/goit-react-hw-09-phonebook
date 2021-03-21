@@ -1,10 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {useCallback} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { deleteContact, getSortContacts } from '../../redux/contacts';
 import ContactListItem from './ContactListItem';
-import './ContactListAnim.css'
+import './ContactListAnim.css';
 
-function ContactList({ contacts, onDeleteContact }) {
+export default function ContactList() {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getSortContacts);
+
+  const onDeleteContact = useCallback(id => {
+    dispatch(deleteContact(id));
+  }, [dispatch]);
+
   return (
     <TransitionGroup component="ol">
       {contacts.map(({ id, name, number }) => (
@@ -19,14 +27,3 @@ function ContactList({ contacts, onDeleteContact }) {
     </TransitionGroup>
   );
 };
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }),
-  ),
-  onDeleteContact: PropTypes.func,
-};
-
-export default ContactList;

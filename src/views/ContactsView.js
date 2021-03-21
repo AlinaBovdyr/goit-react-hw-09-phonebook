@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import { connect } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { fetchContact } from '../redux/contacts/contacts-operations';
 import { getAllContacts, getError, getIsLoading } from '../redux/contacts/selectors';
 
@@ -19,79 +19,62 @@ import '../styles/animations/ModalAppear.css';
 import '../styles/animations/NoticeAppear.css';
 import '../styles/animations/ContactListAppear.css';
 
-class ContactsView extends PureComponent {
-  state = {
-    showModal: false,
-    error: false,
-    text: '',
-  };
+export default function ContactsView() {
+  const dispatch = useDispatch();
 
-  componentDidMount() {
-    this.props.fetchContacts();
-  }
+  const contacts = useSelector(getAllContacts);
+  const isLoading = useSelector(getIsLoading);
+  const isError = useSelector(getError);
 
-  toggleModal = () => {
-    this.setState(({ showModal }) => ({
-      showModal: !showModal,
-    }));
-  };
+  const [showModal, setShowModal] = useState(false);
 
-  render() {
-    const { showModal } = this.state;
-    const { contacts, isLoading, isError } = this.props;
+  useEffect(() => {
+    dispatch(fetchContact());
+  }, [dispatch]);
 
-    return (
-      <Container>
-        <Header onClick={this.toggleModal} />
+  const toggleModal = useCallback(() => {
+      setShowModal(prevShowModal => !prevShowModal);
+  }, []);
 
-        {isLoading && <LoaderView />}
+  return (
+    <Container>
+      <Header onClick={toggleModal} />
 
-        <CSSTransition
-          in={showModal}
-          unmountOnExit
-          classNames="modal"
-          timeout={500}
-        >
-          <Modal onClose={this.toggleModal}>
-            <ContactForm onSave={this.toggleModal} />
-          </Modal>
-        </CSSTransition>
+      <CSSTransition
+        in={showModal}
+        unmountOnExit
+        classNames="modal"
+        timeout={500}
+      >
+        <Modal onClose={toggleModal}>
+          <ContactForm onSave={toggleModal} />
+        </Modal>
+      </CSSTransition>
 
-        <CSSTransition
-          in={contacts.length > 1}
-          unmountOnExit
-          classNames="fade"
-          timeout={250}
-        >
-          <div>
-            <Filter />
-            <Sorter />
-          </div>
-        </CSSTransition>
+      <CSSTransition
+        in={contacts.length > 1}
+        unmountOnExit
+        classNames="fade"
+        timeout={250}
+      >
+        <div>
+          <Filter />
+          <Sorter />
+        </div>
+      </CSSTransition>
 
-        <CSSTransition
-          in={true}
-          appear={true}
-          unmountOnExit
-          classNames="item-fade"
-          timeout={500}
-        >
-          {isError ? <ErrorView /> : <ContactList />}
-        </CSSTransition>
-        
-        </Container>
-    );
-  }
+      <CSSTransition
+        in={true}
+        appear={true}
+        unmountOnExit
+        classNames="item-fade"
+        timeout={500}
+      >
+        {isError ? <ErrorView /> : <ContactList />}
+      </CSSTransition>
+      
+      {isLoading && <LoaderView />}
+      
+      </Container>
+  );
 };
-
-const mapStateToProps = state => ({
-  contacts: getAllContacts(state),
-  isLoading: getIsLoading(state),
-  isError: getError(state),
-});
-
-const mapDispatchToProps = dispatch => ({
-  fetchContacts: () => dispatch(fetchContact())
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactsView);
