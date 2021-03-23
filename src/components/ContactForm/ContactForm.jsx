@@ -1,14 +1,23 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { addContact, getAllContacts } from '../../redux/contacts';
+import { addContact, getAllContacts, editContact } from '../../redux/contacts';
 import { toast } from 'react-toastify';
 import s from './ContactForm.module.css';
 
-export default function ContactForm({onSave}) {
+export default function ContactForm({onSave, data}) {
   const dispatch = useDispatch();
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const contacts = useSelector(getAllContacts);
+
+  useEffect(() => {
+    if (data) {
+      setName(data.name);
+      setNumber(data.number);
+    }
+
+    return
+  }, [data]);
 
   const handleChange = event => {
     const { name, value } = event.currentTarget;
@@ -36,16 +45,27 @@ export default function ContactForm({onSave}) {
         return toast.error('Enter a contact number', {position: "top-center",});
       };
 
-      if (contacts.some(contact => contact.name === name)) {
+      if (contacts.some(contact => contact.name === name && !data)) {
         return toast.error(`${name} is already in contacts!`, {position: "top-center",});
       };
 
-      dispatch(addContact(name, number));
-      toast.success('The contact was added', {position: "top-left"});
-      onSave();
-      setName('');
-      setNumber('');
-    }, [contacts, dispatch, name, number, onSave]
+      if (data) {
+        if (contacts.some(contact => contact.name === name && contact.number === number)) {
+          return toast.error(`${name} is already in contacts!`, {position: "top-center",});
+        };
+
+        dispatch(editContact(data.id, name, number));
+        
+        
+        toast.success('The contact was successfully edited', {position: "top-left"});
+      } else {
+        dispatch(addContact(name, number));
+        toast.success('The contact was added', {position: "top-left"});
+      }
+        onSave();
+        setName('');
+        setNumber('');
+    }, [contacts, dispatch, name, number, onSave, data]
   );
   
   return (
@@ -71,9 +91,11 @@ export default function ContactForm({onSave}) {
               onChange={handleChange}
             />
           </label>
-          <button className={s.button} type="submit">
-            Add contact
-          </button>
+          
+        {data
+          ? <button className={s.button} type="submit">Edit contact</button>
+          : <button className={s.button} type="submit">Add contact</button>
+        }
         </form>
       </>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '../UI/IconButton/IconButton';
-import { ReactComponent as AddIcon } from '../../icons/plus.svg';
+import { ReactComponent as AddIcon } from '../../icons/user-plus.svg';
 import s from './Header.module.css';
 
 const Header = ({onClick}) => {
@@ -14,7 +14,7 @@ const Header = ({onClick}) => {
             aria-label="Add contact"
             title="Add contact"
           >
-            <AddIcon width="16" height="16" fill="#fff" />
+            <AddIcon width="22" height="22" fill="#fff" />
           </IconButton>
         </div>
     );

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import s from './IconButton.module.css';
 
 const IconButton = ({ children, className, onClick, ...restProps }) => {
-  const classList = [className, s.button].join(' ');
+  const classList = [s.button, className].join(' ');
 
   return (
     <button

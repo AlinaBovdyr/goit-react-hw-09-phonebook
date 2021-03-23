@@ -21,6 +21,7 @@ export default function ContactList() {
               name={name}
               number={number}
               onDelete={() => onDeleteContact(id)}
+              onEditClick={id}
             />
           </CSSTransition>
       ))}

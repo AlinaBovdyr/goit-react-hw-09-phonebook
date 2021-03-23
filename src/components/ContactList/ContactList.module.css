@@ -4,7 +4,7 @@
 .contactItem {
   /* width: 80%; */
   margin-bottom: 10px;
-  padding: 15px;
+  padding: 15px 20px;
 
   font-size: 22px;
   font-weight: 600;
@@ -59,4 +59,27 @@
 .link {
   display: inline-block;
   margin-left: 20px;
+}
+
+.iconList {
+  list-style: none;
+  display: flex;
+  padding: 0;
+  margin: 0;
+}
+
+.iconItem {
+  margin-right: 10px;
+}
+
+.iconItem:last-child {
+  margin-right: 0;
+}
+
+.deleteIcon {
+  background-color: #ee1e1e;
+}
+
+.deleteIcon:hover {
+  background-color: #a80606;
 }

@@ -33,7 +33,7 @@ export default function ContactsView() {
   }, [dispatch]);
 
   const toggleModal = useCallback(() => {
-      setShowModal(prevShowModal => !prevShowModal);
+    setShowModal(prevShowModal => !prevShowModal);
   }, []);
 
   return (

@@ -2,7 +2,8 @@ import axios from 'axios';
 import {
     addContactRequest, addContactSuccess, addContactError,
     deleteContactRequest, deleteContactSuccess, deleteContactError,
-    fetchContactRequest, fetchContactSuccess, fetchContactError
+    fetchContactRequest, fetchContactSuccess, fetchContactError,
+    editContactRequest, editContactSuccess, editContactError,
 } from './actions';
 
 
@@ -32,10 +33,24 @@ export const addContact = (name, number) => dispatch => {
 };
 
 export const deleteContact = contactId => dispatch => {
-    dispatch(deleteContactRequest())
+    dispatch(deleteContactRequest());
 
     axios
         .delete(`/contacts/${contactId}`)
         .then(() => dispatch(deleteContactSuccess(contactId)))
         .catch(error => dispatch(deleteContactError(error.message)));
+};
+
+export const editContact = (contactId, name, number) => dispatch => {
+    const contact = {
+        name,
+        number,
+    };
+
+    dispatch(editContactRequest());
+
+    axios
+        .patch(`/contacts/${contactId}`, contact)
+        .then(({data}) => dispatch(editContactSuccess(data)))
+        .catch(error => dispatch(editContactError(error.message)));
 };
