@@ -2,12 +2,14 @@ import { useState, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import IconButton from '../UI/IconButton/IconButton';
 import s from './ContactList.module.css';
-import { ReactComponent as DeleteIcon } from '../../icons/bin.svg';
 import { ReactComponent as CallIcon } from '../../icons/phone.svg';
-import { ReactComponent as EditIcon } from '../../icons/pencil.svg';
 import { CSSTransition } from 'react-transition-group';
 import Modal from '../UI/Modal/Modal';
 import ContactForm from '../ContactForm/ContactForm';
+
+import DeleteForeverOutlinedIcon from '@material-ui/icons/DeleteForeverOutlined';
+import EditOutlinedIcon from '@material-ui/icons/EditOutlined';
+import CallOutlinedIcon from '@material-ui/icons/CallOutlined';
 
 function ContactListItem({ name, number, onDelete, onEditClick }) {
   const telNum = ['tel:', number].join('');
@@ -45,8 +47,11 @@ function ContactListItem({ name, number, onDelete, onEditClick }) {
             title="Call up"
             className={s.button}
             aria-label="Make a call "
-          >
-            <CallIcon className={s.icon} fill="#0ce620" />
+              >
+                <CallOutlinedIcon 
+                  className={s.icon} 
+                  style={{ color: "#0ce620", fontSize: 22 }}
+                />
           </IconButton>
         </a>
       </div>
@@ -56,8 +61,8 @@ function ContactListItem({ name, number, onDelete, onEditClick }) {
               title="Delete contact"
               onClick={toggleModal}
               aria-label="Delete contact"
-            >
-              <EditIcon width="14" height="14" fill="#fff" />
+              >
+                <EditOutlinedIcon style={{ color: "#fff", fontSize: 20 }} />
             </IconButton>
           </li>
           <li className={s.iconItem}>
@@ -66,8 +71,10 @@ function ContactListItem({ name, number, onDelete, onEditClick }) {
               title="Delete contact"
               onClick={onDelete}
               aria-label="Delete contact"
-            >
-              <DeleteIcon width="14" height="14" fill="#fff" />
+              >
+                <DeleteForeverOutlinedIcon
+                  style={{ color: "#fff", fontSize: 23 }}
+                />
             </IconButton>
           </li>
         </ul>

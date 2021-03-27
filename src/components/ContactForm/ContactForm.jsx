@@ -70,7 +70,7 @@ export default function ContactForm({onSave, data}) {
   
   return (
       <>
-        <form className={s.container} onSubmit={handleSubmit}>
+      <form className={s.container} onSubmit={handleSubmit}>
           <label className={s.field}>
             <span className={s.label}>Name</span>
             <input

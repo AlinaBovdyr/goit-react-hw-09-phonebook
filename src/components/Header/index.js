@@ -6,7 +6,7 @@ import s from './Header.module.css';
 
 const Header = ({onClick}) => {
     return (
-        <div className={s.wrapper}>
+      <div className={s.wrapper}>
           <h2 className={s.title}>Add new contact</h2>
           <IconButton
             className={s.addBtn}
@@ -16,7 +16,7 @@ const Header = ({onClick}) => {
           >
             <AddIcon width="22" height="22" fill="#fff" />
           </IconButton>
-        </div>
+      </div>
     );
 };
 
